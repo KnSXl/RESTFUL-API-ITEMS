@@ -2,15 +2,25 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Item;
+use App\Traits\ResponseTrait;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ItemRequest extends FormRequest
 {
+    use ResponseTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
+        if (request()->isMethod('put') || request()->isMethod('patch')) {
+            $id = $this->route('items');
+            return $id && Item::where('id', $id)->exists();
+        }
+
         return true;
     }
 
@@ -55,5 +65,10 @@ class ItemRequest extends FormRequest
             'name.max'           => __('item.thenamefieldmustnotbegreaterthan255characters'),
             'description.string' => __('item.thedescriptionfieldmustbeastring'),
         ];
+    }
+
+    protected function failedAuthorization()
+    {
+        throw new HttpResponseException($this->errorResponse(__('item.itemnotfound'), 404));
     }
 }
