@@ -161,6 +161,10 @@ php artisan migrate
 ```bash
 php artisan serve
 ```
+ou
+```bash
+php artisan serve --host=0.0.0.0 --port=8000 // Motivo: Permite que o servidor Laravel seja acessado a partir de outras máquinas na rede, não apenas do localhost, e define explicitamente a porta 8000.
+```
 --- 
 
 ### INICIAR `DB` E `BACK-END` AO MESMO TEMPO
