@@ -17,7 +17,7 @@ class ItemRequest extends FormRequest
     public function authorize(): bool
     {
         if (request()->isMethod('put') || request()->isMethod('patch')) {
-            $id = $this->route('items');
+            $id = $this->route('item');
             return $id && Item::where('id', $id)->exists();
         }
 
