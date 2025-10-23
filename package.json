@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "serve": "cd BACKEND && php artisan serve",
+        "serve": "cd BACK-END && php artisan serve",
         "up": "cd DB && docker-compose up",
         "all": "npm-run-all --parallel up serve"
     },
